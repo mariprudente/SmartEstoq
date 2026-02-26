@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistema de Estoque</title>
+</head>
+<body>
+    <h1>Controle de Estoque</h1>
+
+    <form action="/cadastrar" method="POST">
+        <input type="text" name="nome" placeholder="Nome do produto" required>
+        <input type="number" name="quantidade" placeholder="Quantidade" required>
+        <input type="number" name="estoque_minimo" placeholder="Estoque mínimo" required>
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <h2>Lista de Produtos</h2>
+
+    <ul>
+        {% for produto in produtos %}
+            <li>
+                {{ produto.nome }} -
+                Quantidade: {{ produto.quantidade }}
+
+                {% if produto.quantidade <= produto.estoque_minimo %}
+                    ⚠️ Estoque Baixo
+                {% endif %}
+
+                <a href="/deletar/{{ produto.id }}">Excluir</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
